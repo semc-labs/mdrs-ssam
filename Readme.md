@@ -1,4 +1,4 @@
-## MDRS-SSAM
+### MDRS-SSAM
 
 This is the software github repo for the Nexus Aurora MDRS-SSAM project.
 It is a ROS+Gazebo workspace so you will need to install ROS and Gazebo.
