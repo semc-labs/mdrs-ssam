@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find ssam_simulation)/models/scout/parameter.xacro" />
+  
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>20</updateRate>
+      <leftJoint>left_back_wheel_hinge</leftJoint>
+      <rightJoint>right_back_wheel_hinge</rightJoint>
+      <wheelSeparation>${L_wheel*2}</wheelSeparation>
+      <wheelDiameter>${r_wheel*2}</wheelDiameter>
+      <wheelTorque>${torque_wheel}</wheelTorque>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom_link</odometryFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <legacyMode>false</legacyMode>
+    </plugin>
+  </gazebo>
+  
+  <!-- Paint the robot -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+</robot>

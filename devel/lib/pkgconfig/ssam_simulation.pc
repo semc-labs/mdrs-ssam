@@ -1,0 +1,8 @@
+prefix=/home/tibi/SSAM/devel
+
+Name: ssam_simulation
+Description: Description of ssam_simulation
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy std_msgs geometry_msgs
