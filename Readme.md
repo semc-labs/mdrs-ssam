@@ -21,14 +21,14 @@ everything indexed properly in your terminal. Note that you will need to do this
 I also suggest you use Terminator or some other terminal which allow terminal splitting as you will be opening a lot
 of different terminals while working with ROS.
 
-### SSAM Simulation
+##### SSAM Simulation
 This package contains the gazebo world (/worlds), the robot model (/models/scout) and the launch file (/launch).
 To start it run "roslaunch ssam_simulation scout_simulation.launch". If everything is installed properly gazebo should
 start up a world with some cubes and pylons and a 4 wheel robot in the middle.
 
 You can direct the robot using messages to the /cmd_vel topic.
 
-### SSAM Control
+##### SSAM Control
 
 This package currently contains only 2 nodes (/src) which were created for testing purposes:
 * test_control_node : moves the robot forward for 2 seconds, then backwards for 2 seconds. This node only publishes on
