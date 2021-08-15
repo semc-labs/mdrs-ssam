@@ -39,3 +39,6 @@ the robot to move forward (using the /cmd_vel topic). You can start it with "ros
 
 If you start the simulation and a control node you should see the robot moving forward and backwards in the gazebo
 simulation.
+
+-- test --
+
