@@ -1,1 +1,10 @@
-/build
+.cproject
+.project
+.pydevproject
+.vscode
+cmake_install.cmake
+build/
+bin/
+lib/
+msg_gen/
+srv_gen/
