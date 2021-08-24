@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <arg name="scout_count"   default="2"/>
+
+  <!-- World arguments -->
+  <arg name="world" 		default="empty"/> 
+  <arg name="paused" 		default="false"/>
+  <arg name="use_sim_time" 	default="true"/>
+  <arg name="gui" 		default="true"/>
+  <arg name="headless" 		default="false"/>
+  <arg name="debug" 		default="false"/>
+  
+  <!-- Load the world environment -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" 		value="$(find ssam_simulation)/worlds/test_world.world"/>
+    <arg name="paused" 			value="$(arg paused)"/>
+    <arg name="use_sim_time"            value="$(arg use_sim_time)"/>
+    <arg name="gui" 			value="$(arg gui)"/>
+    <arg name="headless" 		value="$(arg headless)"/>
+    <arg name="debug" 			value="$(arg debug)"/>
+  </include>
+
+  <include file="$(find ssam_simulation)/launch/spawn_scouts.launch" >
+      <arg name="scout_count" value="$(arg scout_count)" />
+  </include>
+
+</launch>

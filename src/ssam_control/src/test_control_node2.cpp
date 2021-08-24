@@ -36,13 +36,22 @@ void odometryCallback(const nav_msgs::Odometry::ConstPtr& msg)
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "test_control_node2");
+    ros::init(argc, argv, "test_control_node2", ros::init_options::AnonymousName);
 
     ROS_INFO("Booting up node");
 
-    ros::NodeHandle local_nodeHandle = ros::NodeHandle();
-    ros::Publisher local_publisher = local_nodeHandle.advertise<geometry_msgs::Twist>("cmd_vel", 1000);
-    ros::Subscriber local_subscriber = local_nodeHandle.subscribe("odom", 1000, odometryCallback);
+    ros::NodeHandle local_nodeHandle = ros::NodeHandle("~");
+
+    std::string scout_name;
+    local_nodeHandle.getParam("scout_name", scout_name);
+
+    if (scout_name.size() != 0)
+    {
+        ROS_INFO("Controlling scout: %s", scout_name.c_str());
+    }
+
+    ros::Publisher local_publisher = local_nodeHandle.advertise<geometry_msgs::Twist>("/" + scout_name + "/cmd_vel", 1000);
+    ros::Subscriber local_subscriber = local_nodeHandle.subscribe("/" + scout_name + "/odom", 1000, odometryCallback);
 
     nodeHandle = &local_nodeHandle;
     publisher = &local_publisher;

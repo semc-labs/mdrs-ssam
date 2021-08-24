@@ -28,6 +28,10 @@ start up a world with some cubes and pylons and a 4 wheel robot in the middle.
 
 You can direct the robot using messages to the /cmd_vel topic.
 
+###### Multiple Scouts
+Use the "multiple_scout_simulation.launch" file to use spawn multiple scouts in the world. You can use the
+scout_count:=<value> to set how many scouts you want to spawn (they will be spawn 1 meter apart on the Y axis).
+
 ##### SSAM Control
 
 This package currently contains only 2 nodes (/src) which were created for testing purposes:
@@ -39,6 +43,7 @@ the robot to move forward (using the /cmd_vel topic). You can start it with "ros
 
 If you start the simulation and a control node you should see the robot moving forward and backwards in the gazebo
 simulation.
-
--- test --
+If you use multiple scouts in the simulation you need to use the _scout_name=<string_value> to tell the node which scout
+to control. For example "rosrun ssam_control test_control_node2 _scout_name:=scout3" will make the 3rd scout from the
+simulation to move forward and backwards. You can spawn multiple test_control_nodes to control multiple scouts.
 
