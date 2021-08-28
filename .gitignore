@@ -9,3 +9,6 @@ lib/
 msg_gen/
 srv_gen/
 devel/
+
+# Vim Swap File
+.swp
