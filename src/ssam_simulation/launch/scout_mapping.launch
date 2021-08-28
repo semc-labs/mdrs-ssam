@@ -1,0 +1,11 @@
+<launch>
+
+  <include file="$(find ssam_simulation)/launch/scout_simulation.launch"/>
+
+  <node pkg="gmapping" name="slam_gmapping" type="slam_gmapping" output="screen">
+          <param name="scan"        value="scan"/>
+          <param name="odom_frame"  value="odom_link"/>
+          <param name="base_frame"  value="base_link"/>
+  </node>
+
+</launch>

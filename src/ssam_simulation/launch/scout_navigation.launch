@@ -1,0 +1,18 @@
+<launch>
+    <include file="$(find ssam_simulation)/launch/scout_simulation.launch"/>
+    <include file="$(find ssam_control)/launch/scout_localization.launch"/>
+    
+    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+	    <rosparam file="$(find ssam_control)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+        <rosparam file="$(find ssam_control)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+        <rosparam file="$(find ssam_control)/config/local_costmap_params.yaml" command="load" />
+        <rosparam file="$(find ssam_control)/config/global_costmap_params.yaml" command="load" />
+
+        <param    name="base_global_planner"       value="global_planner/GlobalPlanner"/>
+        <rosparam file="$(find ssam_control)/config/planner_global.yaml" command="load" />
+
+        <rosparam file="$(find ssam_control)/config/planner_teb.yaml" command="load" />
+        <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
+    </node>
+
+</launch>

@@ -9,6 +9,29 @@ http://wiki.ros.org/noetic/Installation/Ubuntu
 For ROS tutorial it is advised that you follow the official ones from the ROS website:
 http://wiki.ros.org/ROS/Tutorials
 
+##### Additional Required Packages
+* [gmapping](http://wiki.ros.org/gmapping)
+```bash
+sudo apt-get install ros-noetic-gmapping
+```
+* [map_server](http://wiki.ros.org/map_server)
+```bash
+sudo apt-get install ros-noetic-map-server
+```
+* [move_base](http://wiki.ros.org/move_base)
+```bash
+sudo apt-get install ros-noetic-move-base
+```
+* [global_planner](http://wiki.ros.org/global_planner)
+```bash
+sudo apt-get install ros-noetic-global-planner
+```
+* [teb_local_planner](http://wiki.ros.org/teb_local_planner)
+```bash
+sudo apt-get install ros-noetic-teb-local-planner
+```
+
+##### Packages
 The project right now only contains 2 packages:
 * ssam_simulation
 * ssam_control
@@ -31,6 +54,15 @@ You can direct the robot using messages to the /cmd_vel topic.
 ###### Multiple Scouts
 Use the "multiple_scout_simulation.launch" file to use spawn multiple scouts in the world. You can use the
 scout_count:=<value> to set how many scouts you want to spawn (they will be spawn 1 meter apart on the Y axis).
+
+###### Navigation Test
+Run scout_navigation.launch to test if the robot navigates correctly. To send pose commands:
+* Run rviz
+* Open ssam_simulation/rviz/navigation.rviz
+* Use the 2D Nav Goal tool
+
+Note: Right now the scout uses world position and rotation provided by gazebo to navigate. This will be changed in the future.
+It also uses a laser for scanning purposes. This will also be changed.
 
 ##### SSAM Control
 

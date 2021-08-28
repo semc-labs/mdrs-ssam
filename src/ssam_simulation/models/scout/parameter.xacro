@@ -15,4 +15,9 @@
   <xacro:property name="torque_wheel" value="10" />
   <xacro:property name="L_wheel" value="0.1788" />
 
+  <!-- Parameters for the Hukoyu Laser -->
+  <xacro:property name="x_hokuyo" value="0.1" />
+  <xacro:property name="y_hokuyo" value="0.1" />
+  <xacro:property name="z_hokuyo" value="0.1" />
+  
 </robot>
