@@ -30,6 +30,14 @@ sudo apt-get install ros-noetic-global-planner
 ```bash
 sudo apt-get install ros-noetic-teb-local-planner
 ```
+* [controller_manager](http://wiki.ros.org/controller_manager)
+```bash
+sudo apt-get install ros-noetic-controller-manager
+```
+* [ros_control](http://wiki.ros.org/ros_control)
+```bash
+sudo apt-get install ros-noetic-ros-control ros-noetic-ros-controllers
+```
 
 ##### Packages
 The project right now only contains 2 packages:

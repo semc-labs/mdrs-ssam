@@ -40,111 +40,61 @@
         <box size="${x_chassis} ${y_chassis} ${z_chassis}"/>
       </geometry>
     </visual>
-
-    <collision name='caster_collision'>
-      <origin xyz="${-(r_wheel/2)+x_chassis/2} 0 ${-z_chassis/2}" rpy=" 0 0 0"/>
-      <geometry>
-        <sphere radius="${r_wheel/2}"/>
-      </geometry>
-      <surface>
-        <friction>
-          <ode>
-            <mu>0</mu>
-            <mu2>0</mu2>
-            <slip1>1.0</slip1>
-            <slip2>1.0</slip2>
-          </ode>
-        </friction>
-      </surface>
-    </collision>
-    <visual name='caster_visual'>
-      <origin xyz="${-(r_wheel/2)+x_chassis/2} 0 ${-z_chassis/2}" rpy=" 0 0 0"/>
-      <geometry>
-        <sphere radius="${r_wheel/2}"/>
-      </geometry>
-    </visual>
   </link>
 
   <!-- Add the wheels for the robot -->
-  <link name="left_back_wheel">
-    <collision name="collision">
-      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
-      <geometry>
-        <cylinder radius="${r_wheel}" length="${h_wheel}"/>
-      </geometry>
-      <surface>
-        <friction>
-          <ode>
-            <mu>1.0</mu>
-            <mu2>1.0</mu2>
-            <slip1>0.0</slip1>
-            <slip2>0.0</slip2>
-          </ode>
-        </friction>
-      </surface>
-    </collision>
-    <visual name="left_wheel_visual">
-      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
-      <geometry>
-        <cylinder radius="${r_wheel}" length="${h_wheel}"/>
-      </geometry>
-    </visual>
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
-      <mass value="${m_wheel}"/>
-      <cylinder_inertia m="${m_wheel}" r="${r_wheel}" h="${h_wheel}"/>
-      <xacro:cylinder_inertia m="${m_wheel}" r="${r_wheel}" h="${h_wheel}"/>
-    </inertial>
-  </link>
+  <xacro:macro name="scout_wheel" params="prefix xReflect yReflect">
+    <link name="${prefix}_wheel">
+      <collision name="collision">
+        <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+        <geometry>
+          <cylinder radius="${r_wheel}" length="${h_wheel}"/>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>1.0</mu>
+              <mu2>1.0</mu2>
+              <slip1>0.0</slip1>
+              <slip2>0.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+      <visual name="${prefix}_wheel_visual">
+        <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+        <geometry>
+          <cylinder radius="${r_wheel}" length="${h_wheel}"/>
+        </geometry>
+      </visual>
+      <visual name="${prefix}_wheel_test_ball">
+        <origin xyz="0.07 0 0" rpy="0 0 0"/>
+        <geometry>
+          <sphere radius="${r_wheel/3}"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
+        <mass value="${m_wheel}"/>
+        <cylinder_inertia m="${m_wheel}" r="${r_wheel}" h="${h_wheel}"/>
+        <xacro:cylinder_inertia m="${m_wheel}" r="${r_wheel}" h="${h_wheel}"/>
+      </inertial>
+    </link>
 
-  <link name="right_back_wheel">
-    <collision name="collision">
-      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
-      <geometry>
-        <cylinder radius="${r_wheel}" length="${h_wheel}"/>
-      </geometry>
-      <surface>
-        <friction>
-          <ode>
-            <mu>1.0</mu>
-            <mu2>1.0</mu2>
-            <slip1>0.0</slip1>
-            <slip2>0.0</slip2>
-          </ode>
-        </friction>
-      </surface>
-    </collision>
-    <visual name="right_wheel_visual">
-      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
-      <geometry>
-        <cylinder radius="${r_wheel}" length="${h_wheel}"/>
-      </geometry>
-    </visual>
-    <inertial>
-      <origin xyz="0 0 0" rpy="0 1.5707 1.5707"/>
-      <mass value="${m_wheel}"/>
-      <cylinder_inertia m="${m_wheel}" r="${r_wheel}" h="${h_wheel}"/>
-      <xacro:cylinder_inertia m="${m_wheel}" r="${r_wheel}" h="${h_wheel}"/>
-    </inertial>
-  </link>
+    <joint type="continuous" name="${prefix}_wheel_hinge">
+      <origin xyz="${xReflect*x_chassis/4} ${yReflect*(y_chassis/2+h_wheel/2)} ${r_wheel/2-z_chassis/2}" rpy="0 0 0"/>
+      <child link="${prefix}_wheel"/>
+      <parent link="base_link"/>
+      <axis xyz="0 1 0" rpy="0 0 0"/>
+      <limit effort="100" velocity="100"/>
+      <joint_properties damping="0.0" friction="0.0"/>
+    </joint>
+  </xacro:macro>
 
-  <!-- Set joints for the wheels which can be controlled over ROS -->
-  <joint type="continuous" name="left_back_wheel_hinge">
-    <origin xyz="${-x_chassis/4} ${y_chassis/2+h_wheel/2} ${r_wheel/2-z_chassis/2}" rpy="0 0 0"/>
-    <child link="left_back_wheel"/>
-    <parent link="base_link"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
-  </joint>
-  <joint type="continuous" name="right_back_wheel_hinge">
-    <origin xyz="${-x_chassis/4} ${-y_chassis/2-h_wheel/2} ${r_wheel/2-z_chassis/2}" rpy="0 0 0"/>
-    <child link="right_back_wheel"/>
-    <parent link="base_link"/>
-    <axis xyz="0 1 0" rpy="0 0 0"/>
-    <limit effort="100" velocity="100"/>
-    <joint_properties damping="0.0" friction="0.0"/>
-  </joint>
+  <xacro:scout_wheel prefix="left_back" xReflect="-1" yReflect="1"/>
+  <xacro:scout_wheel prefix="left_front" xReflect="1" yReflect="1"/>
+  <xacro:scout_wheel prefix="right_back" xReflect="-1" yReflect="-1"/>
+  <xacro:scout_wheel prefix="right_front" xReflect="1" yReflect="-1"/>
 
   <!-- Add a Hokuyo Laser -->
   <link name="laser_link">
@@ -175,5 +125,48 @@
     <child link="laser_link"/>
   </joint>
   
- </robot>
+  <transmission name="left_back_wheel_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_back_wheel_hinge">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_back_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
+  <transmission name="right_back_wheel_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_back_wheel_hinge">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_back_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="left_front_wheel_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_front_wheel_hinge">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_front_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="right_front_wheel_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_front_wheel_hinge">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_front_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+ </robot>

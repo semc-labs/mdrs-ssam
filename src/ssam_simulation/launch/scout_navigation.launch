@@ -13,6 +13,15 @@
 
         <rosparam file="$(find ssam_control)/config/planner_teb.yaml" command="load" />
         <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
+        <remap from="cmd_vel" to="/scout/diff_drive_controller/cmd_vel"/>
+    </node>
+
+    <rosparam command="load" file="$(find ssam_control)/config/controllers.yaml"/>
+
+    <param name="scout/robot_description" textfile="$(find ssam_simulation)/models/scout/scout.xacro"/>
+
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="/scout" args="joint_state_controller diff_drive_controller">
     </node>
 
 </launch>
