@@ -1,7 +1,9 @@
 <launch>
     <include file="$(find ssam_simulation)/launch/scout_simulation.launch"/>
     <include file="$(find ssam_control)/launch/scout_localization.launch"/>
-    
+
+    <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" output="screen" ns="stereo"/>
+
     <node pkg="move_base" type="move_base" name="move_base" output="screen">
 	    <rosparam file="$(find ssam_control)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
         <rosparam file="$(find ssam_control)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />

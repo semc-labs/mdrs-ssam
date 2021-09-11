@@ -15,9 +15,15 @@
   <xacro:property name="torque_wheel" value="10" />
   <xacro:property name="L_wheel" value="0.1788" />
 
-  <!-- Parameters for the Hukoyu Laser -->
-  <xacro:property name="x_hokuyo" value="0.1" />
-  <xacro:property name="y_hokuyo" value="0.1" />
-  <xacro:property name="z_hokuyo" value="0.1" />
+  <!-- Parameters for the stereo camera-->
+  <xacro:property name="x_camera" value="0.2" />
+  <xacro:property name="y_camera" value="0" />
+  <xacro:property name="z_camera" value="${z_chassis/2 + h_camera/2}"/>
+  <xacro:property name="w_camera" value="0.1" />
+  <xacro:property name="l_camera" value="0.1" />
+  <xacro:property name="h_camera" value="0.1" />
+  <xacro:property name="camera_res_w" value="1280" />
+  <xacro:property name="camera_res_h" value="800" />
+  <xacro:property name="camera_fov" value="1.22173" />
   
 </robot>
