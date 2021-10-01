@@ -1,0 +1,13 @@
+<launch>
+    <arg name="simulation" default="false"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro '$(find ssam_core)/models/scout/scout.xacro'"/>
+
+    <include file="$(find ssam_navigation)/launch/scout_navigation.xml">
+        <arg name="simulation" value="$(arg simulation)"/>
+    </include>
+    
+    <include file="$(find ssam_control)/launch/scout_control.xml">
+        <arg name="simulation" value="$(arg simulation)"/>
+    </include>
+</launch>
