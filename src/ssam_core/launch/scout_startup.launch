@@ -7,7 +7,7 @@
         <arg name="simulation" value="$(arg simulation)"/>
     </include>
     
-    <include file="$(find ssam_control)/launch/scout_control.xml">
+    <include file="$(find ssam_control)/launch/scout_control.launch">
         <arg name="simulation" value="$(arg simulation)"/>
     </include>
 </launch>
