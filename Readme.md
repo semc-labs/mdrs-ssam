@@ -9,35 +9,21 @@ http://wiki.ros.org/noetic/Installation/Ubuntu
 For ROS tutorial it is advised that you follow the official ones from the ROS website:
 http://wiki.ros.org/ROS/Tutorials
 
-##### Additional Required Packages
-* [gmapping](http://wiki.ros.org/gmapping)
+##### Setup
+To install ROS from scratch, run:
 ```bash
-sudo apt-get install ros-noetic-gmapping
+./install_ros.sh
 ```
-* [map_server](http://wiki.ros.org/map_server)
+This will install either ROS melodic or noetic, depending on your ubuntu version.
+
+To build your project for the first time, run:
 ```bash
-sudo apt-get install ros-noetic-map-server
+./build.sh
 ```
-* [move_base](http://wiki.ros.org/move_base)
-```bash
-sudo apt-get install ros-noetic-move-base
-```
-* [global_planner](http://wiki.ros.org/global_planner)
-```bash
-sudo apt-get install ros-noetic-global-planner
-```
-* [teb_local_planner](http://wiki.ros.org/teb_local_planner)
-```bash
-sudo apt-get install ros-noetic-teb-local-planner
-```
-* [controller_manager](http://wiki.ros.org/controller_manager)
-```bash
-sudo apt-get install ros-noetic-controller-manager
-```
-* [ros_control](http://wiki.ros.org/ros_control)
-```bash
-sudo apt-get install ros-noetic-ros-control ros-noetic-ros-controllers
-```
+
+This will first install all missing required packages that the project depends on using rosdep, then will call catkin_make.
+Subsequently, you can just call catkin_make to build your project if no new required packages are added to the project.
+To add a new dependency, list it inside the package manifest using one of the <depend> tags. See http://wiki.ros.org/Manifest for more info.
 
 ##### Packages
 The project right now contains 4 packages:

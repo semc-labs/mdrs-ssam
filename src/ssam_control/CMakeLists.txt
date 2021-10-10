@@ -2,15 +2,19 @@ cmake_minimum_required(VERSION 3.0.2)
 project(ssam_control)
 
 find_package(catkin REQUIRED COMPONENTS 
-  roscpp
-  rospy
-  geometry_msgs
-  controller_manager
   rosserial_arduino
   rosserial_client
+  controller_manager
 )
 
-catkin_package()
+catkin_package(
+  CATKIN_DEPENDS 
+  roscpp 
+  rospy 
+  controller_manager 
+  rosserial_arduino 
+  rosserial_client
+)
 
 include_directories(
   "include"

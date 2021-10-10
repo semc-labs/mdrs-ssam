@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
+project(ssam_control_firmware)
 
 add_compile_options(-std=c++11)
 
