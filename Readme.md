@@ -31,10 +31,10 @@ To build your code on a remote machine, follow these steps:
 ```bash
 ./deploy.py -d <username>@<address>:<port> --save <machine_name>
 ```
-    This step is not mandatory, but it's useful to not have to type the address every time.
-    The port is only necessary if it's different from the default ssh port (22).
-    If this is the first time running the save command, a file named **deploy_config.yaml** will be created and your machine will be added and also set as the default.
-    Subsequent calls to deploy.py won't need to mention any destination or machine.
+This step is not mandatory, but it's useful to not have to type the address every time.
+The port is only necessary if it's different from the default ssh port (22).
+If this is the first time running the save command, a file named **deploy_config.yaml** will be created and your machine will be added and also set as the default.
+Subsequent calls to deploy.py won't need to mention any destination or machine.
 1. If ROS is not installed on the machine, run:
 ```bash
 ./deploy.py --install
