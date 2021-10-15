@@ -1,6 +1,6 @@
 #!/bin/bash
 
-readarray -d = -t elements <<< $(sudo cat /etc/lsb-release | grep DISTRIB_RELEASE)
+readarray -d = -t elements <<< $(cat /etc/lsb-release | grep DISTRIB_RELEASE)
 
 versionNumber=${elements[1]}
 

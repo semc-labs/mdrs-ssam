@@ -25,6 +25,35 @@ This will first install all missing required packages that the project depends o
 Subsequently, you can just call catkin_make to build your project if no new required packages are added to the project.
 To add a new dependency, list it inside the package manifest using one of the <depend> tags. See http://wiki.ros.org/Manifest for more info.
 
+##### Deploying code on remote hardware
+To build your code on a remote machine, follow these steps:
+1. Run:
+```bash
+./deploy.py -d <username>@<address>:<port> --save <machine_name>
+```
+    This step is not mandatory, but it's useful to not have to type the address every time.
+    The port is only necessary if it's different from the default ssh port (22).
+    If this is the first time running the save command, a file named **deploy_config.yaml** will be created and your machine will be added and also set as the default.
+    Subsequent calls to deploy.py won't need to mention any destination or machine.
+1. If ROS is not installed on the machine, run:
+```bash
+./deploy.py --install
+```
+This will install the appropriate version of ROS as well as copy your code and build it.
+1. Whenever you make changes and wish to rebuild, simply run:
+```bash
+./deploy.py
+```
+(Optional)
+* To deploy to a destination that was not previously saved, run:
+```bash
+./deploy.py -d <username>@<address>:<port>
+```
+* To deploy to a machine that was saved but is not the default, run:
+```bash
+./deploy.py -m <machine_name>
+```
+
 ##### Packages
 The project right now contains 4 packages:
 * ssam_core

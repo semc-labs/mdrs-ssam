@@ -1,12 +1,9 @@
 #!/bin/bash
 
-rosdep install --from-paths src --ignore-src -r -y
-catkin_make
-
 currentDir=$(pwd)
+rosDistro=$(./ros_distro.sh)
 
-if ! grep -Fxq "source $currentDir/devel/setup.bash" ~/.bashrc
-then
-    echo "source $currentDir/devel/setup.bash" >> ~/.bashrc
-    exec bash
-fi
+source /opt/ros/$rosDistro/setup.bash
+
+rosdep install --from-paths src --ignore-src -r -y
+catkin_make $@

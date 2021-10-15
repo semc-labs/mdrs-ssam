@@ -1,6 +1,8 @@
 #!/bin/bash
 
 rosDistro=$(./ros_distro.sh)
+installType=${1:-desktop-full}
+rosVersion="ros-$rosDistro-$installType"
 
 if [[ $rosDistro == "noetic" ]] ;
 then
@@ -13,7 +15,7 @@ then
 fi
 
 echo "Using python version - $pythonVer"
-echo "Preparing to install ros-$rosDistro-desktop-full"
+echo "Preparing to install $rosVersion"
 
 sleep 5
 
@@ -21,7 +23,7 @@ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main
 sudo apt install curl -y
 curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
 sudo apt update
-sudo apt install ros-$rosDistro-desktop-full -y
+sudo apt install $rosVersion -y
 source /opt/ros/$rosDistro/setup.bash
 sudo apt install $pythonVer-rosdep $pythonVer-rosinstall $pythonVer-rosinstall-generator $pythonVer-wstool build-essential -y
 sudo rosdep init

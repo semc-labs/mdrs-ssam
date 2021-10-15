@@ -12,3 +12,4 @@ devel/
 
 # Vim Swap File
 .swp
+deploy_config.yaml
