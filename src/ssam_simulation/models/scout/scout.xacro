@@ -131,6 +131,15 @@
     <child link="camera_link_optical"/>
   </joint>
 
+  <link name="imu_link">
+    <pose>0 0 0 0 0 0</pose>
+  </link>
+  <joint name="base_imu_link" type="fixed">
+    <origin xyz="0 0 0" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="imu_link" />
+  </joint>
+
   <transmission name="left_back_wheel_transmission">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_back_wheel_hinge">
