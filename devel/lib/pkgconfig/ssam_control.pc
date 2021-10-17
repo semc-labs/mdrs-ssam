@@ -1,8 +1,0 @@
-prefix=/home/tibi/SSAM/devel
-
-Name: ssam_control
-Description: Description of ssam_control
-Version: 0.0.0
-Cflags: 
-Libs: -L${prefix}/lib 
-Requires: 

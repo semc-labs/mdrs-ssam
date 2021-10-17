@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>ssam_navigation</name>
+  <version>0.0.0</version>
+  <description>The ssam_navigation package</description>
+
+  <maintainer email="ubuntu@todo.todo">ubuntu</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <exec_depend>xacro</exec_depend>
+  <exec_depend>move_base</exec_depend>
+  <exec_depend>stereo_image_proc</exec_depend>
+  <exec_depend>fake_localization</exec_depend>
+  <exec_depend>global_planner</exec_depend>
+  <exec_depend>teb_local_planner</exec_depend>
+
+</package>

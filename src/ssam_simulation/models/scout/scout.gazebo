@@ -1,10 +1,54 @@
 <?xml version="1.0"?>
-<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-  <xacro:include filename="$(find ssam_simulation)/models/scout/parameter.xacro" />
+<robot name="scout" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="$(find ssam_core)/models/scout/scout.xacro"/>
+  <xacro:include filename="$(find ssam_simulation)/models/scout/materials.xacro"/>
+
+  <transmission name="left_back_wheel_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_back_wheel_hinge">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_back_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="right_back_wheel_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_back_wheel_hinge">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_back_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="left_front_wheel_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_front_wheel_hinge">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="left_front_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="right_front_wheel_transmission">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_front_wheel_hinge">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="right_front_wheel_motor">
+      <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/scout</robotNamespace>
       <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
     </plugin>
   </gazebo>
@@ -42,7 +86,7 @@
   </gazebo>
 
 
-<gazebo reference="camera_link">
+  <gazebo reference="camera_link">
     <sensor type="multicamera" name="stereo_camera">
       <update_rate>${camera_fps}</update_rate>
       <camera name="left">
@@ -98,7 +142,8 @@
   </gazebo>
 
   <!-- Paint the robot -->
-<gazebo reference="base_link">
+  <gazebo reference="base_link">
     <material>Gazebo/Orange</material>
   </gazebo>
+  
 </robot>

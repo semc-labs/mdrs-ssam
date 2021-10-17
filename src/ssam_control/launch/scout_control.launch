@@ -1,0 +1,23 @@
+<launch>
+    <arg name="simulation" default="false"/>
+
+    <rosparam command="load" file="$(find ssam_control)/config/controllers.yaml"/>
+
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" args="joint_state_controller diff_drive_controller">
+    </node>
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/>
+
+    <node unless="$(arg simulation)" name="test_node" pkg="ssam_control" type="scout_control" output="screen">
+        <param name="diffDriveControllerName" value="diff_drive_controller"/>            
+    </node>
+
+    <node unless="$(arg simulation)" name="wheel_controller" pkg="rosserial_python" type="serial_node.py" output="screen">
+        <param name="port"                  type="string"               value="/dev/ttyACM0"/>
+        <param name="baud"                  type="int"                  value="57600"/>
+        <param name="printWheelVelocities"  type="bool"                 value="true"/>
+        <param name="fixedPwm"              type="int"                  value="0"/> <!--0 to disable feature-->
+    </node>
+
+</launch>

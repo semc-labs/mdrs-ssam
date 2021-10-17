@@ -2,13 +2,15 @@
 <launch>
 
   <!-- Define arguments -->
-  <arg name="world" 		default="empty"/> 
-  <arg name="paused" 		default="false"/>
+  <arg name="world" 		    default="empty"/> 
+  <arg name="paused" 		    default="false"/>
   <arg name="use_sim_time" 	default="true"/>
-  <arg name="gui" 		default="true"/>
-  <arg name="headless" 		default="false"/>
-  <arg name="debug" 		default="false"/>
-  
+  <arg name="gui" 		      default="true"/>
+  <arg name="headless" 		  default="false"/>
+  <arg name="debug" 		    default="false"/>
+  <arg name="scout_count"   default="1"/>
+  <arg name="rviz"          default="true"/>
+
   <!-- Load the world environment -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" 		value="$(find ssam_simulation)/worlds/test_world.world"/>
@@ -19,15 +21,11 @@
     <arg name="debug" 			value="$(arg debug)"/>
   </include>
 
-  <!-- This command builds the urdf files from the xacro files by calling the launch file -->
-  <param name="scout_description" command="$(find xacro)/xacro --inorder '$(find ssam_simulation)/models/scout/scout.xacro'"/>
-  
   <!-- Spawn the robot after we built the urdf files -->
-  <node name="scout_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param scout_description -model scout" />
-   
-  <!-- Publish the TFs -->
-  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" >
-    <remap from="robot_description" to="scout_description" />
-  </node>
-  
+  <include file="$(find ssam_simulation)/launch/scout_spawn.xml" >
+      <arg name="scout_count" value="$(arg scout_count)" />
+  </include>
+
+  <node if="$(arg rviz)" type="rviz" name="rviz" pkg="rviz" args="-d $(find ssam_simulation)/rviz/scout_simulation.rviz"/>
+
 </launch>
