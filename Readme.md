@@ -54,6 +54,20 @@ This will install the appropriate version of ROS as well as copy your code and b
 ./deploy.py -m <machine_name>
 ```
 
+##### Launching code on remote hardware
+Use the **launch.py** script to run a launch file on a remote machine:
+```bash
+./launch.py [-d <username>@<address>:<sshport> | -m machine] <package> <launchfile> <launchargs...>
+```
+
+This command uses the same **deploy_config.yaml** file as the deploy script, so if you set that up you can omit the -d or -m parameters and just use the default machine.
+Optionally you can use the **-t** and **-l** parameters to launch a local terminal or launch file respectively, either one connected to the remote ROS master.
+
+Presuming you're using the default machine defined in **deploy_config.yaml**, your launch command would look like this
+```bash
+./launch.py <remotepackage> <remotelaunchfile> <remotelaunchargs...> -t -l <localpackage> <locallaunchfile> <locallaunchargs...>
+```
+
 ##### Packages
 The project right now contains 4 packages:
 * ssam_core
