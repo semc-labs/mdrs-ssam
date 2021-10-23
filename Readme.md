@@ -1,4 +1,4 @@
-### MDRS-SSAM
+## MDRS-SSAM
 
 This is the software github repo for the Nexus Aurora MDRS-SSAM project.
 It is a ROS+Gazebo workspace so you will need to install ROS and Gazebo.
@@ -9,7 +9,7 @@ http://wiki.ros.org/noetic/Installation/Ubuntu
 For ROS tutorial it is advised that you follow the official ones from the ROS website:
 http://wiki.ros.org/ROS/Tutorials
 
-##### Setup
+### Setup
 To install ROS from scratch, run:
 ```bash
 ./install_ros.sh
@@ -25,7 +25,7 @@ This will first install all missing required packages that the project depends o
 Subsequently, you can just call catkin_make to build your project if no new required packages are added to the project.
 To add a new dependency, list it inside the package manifest using one of the <depend> tags. See http://wiki.ros.org/Manifest for more info.
 
-##### Deploying code on remote hardware
+### Deploying code on remote hardware
 To build your code on a remote machine, follow these steps:
 1. Run:
 ```bash
@@ -54,7 +54,7 @@ This will install the appropriate version of ROS as well as copy your code and b
 ./deploy.py -m <machine_name>
 ```
 
-##### Launching code on remote hardware
+### Launching code on remote hardware
 Use the **launch.py** script to run a launch file on a remote machine:
 ```bash
 ./launch.py [-d <username>@<address>:<sshport> | -m machine] <package> <launchfile> <launchargs...>
@@ -68,7 +68,7 @@ Presuming you're using the default machine defined in **deploy_config.yaml**, yo
 ./launch.py <remotepackage> <remotelaunchfile> <remotelaunchargs...> -t -l <localpackage> <locallaunchfile> <locallaunchargs...>
 ```
 
-##### Packages
+### Packages
 The project right now contains 4 packages:
 * ssam_core
 * ssam_control
