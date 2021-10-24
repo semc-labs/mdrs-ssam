@@ -55,6 +55,30 @@ This will install the appropriate version of ROS as well as copy your code and b
 ```
 
 ### Launching code on remote hardware
+##### Install Husarnet and join VPN
+For now we're using Husarnet as a VPN solution to connect to our remote hardware.
+To install and join the network, run the following commands:
+
+```bash
+curl https://install.husarnet.com/install.sh | sudo bash
+sudo systemctl restart husarnet
+sudo husarnet join <serveraddress> <clientname>
+```
+
+Contact one of the project members to send you the server address.
+
+:warning:
+**Husarnet automatically changes your machine's hostname. As a result, you won't be able to launch a local ROS core.**
+**Temp solution: add the following lines to your **~/.bashrc** file**
+
+```bash
+if [[ -z "${ROS_REMOTE}" ]];
+then
+export ROS_HOSTNAME=localhost
+fi
+```
+
+##### Launching the project
 Use the **launch.py** script to run a launch file on a remote machine:
 ```bash
 ./launch.py [-d <username>@<address>:<sshport> | -m machine] <package> <launchfile> <launchargs...>
@@ -108,7 +132,8 @@ This package contains the gazebo world (/worlds), the robot model (/models/scout
 To start it run "roslaunch ssam_simulation scout_startup.launch". 
 
 You should see gazebo startup, as well as rviz. You can use rviz to visualize various info about the robot, as well as issue goal commands for move_base.
-Optionally you can add the argument rviz:=false if you don't wish to launch rviz.
+Optionally you can add the argument rviz_ns:=<robot_ns> if you wish to view info about a specific scout (default is scout1).
+If you wish to turn off rviz, pass rviz_ns:=none.
 
 ###### Multiple Scouts
 To launch multiple scouts, use the argument scout_count:=<value> to set how many scouts you want to spawn (they will be spawn 1 meter apart on the Y axis).

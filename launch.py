@@ -44,12 +44,14 @@ def get_address_type(address):
 def setup_local_env(address):
     envVars = os.environ.copy()
     envVars["ROS_MASTER_URI"] = f"http://{address}:{rosPort}"
+    envVars.pop("ROS_HOSTNAME", None)
+    envVars["ROS_REMOTE"] = "on"
 
     if get_address_type(address) is ipaddress.IPv4Address:
         envVars["ROS_IP"] = get_local_ip_for_address(address)
     else:
         envVars["ROS_IPV6"] = "on"
-    
+ 
     return envVars
 
 
