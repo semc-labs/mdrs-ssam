@@ -1,4 +1,4 @@
-### MDRS-SSAM
+## MDRS-SSAM
 
 This is the software github repo for the Nexus Aurora MDRS-SSAM project.
 It is a ROS+Gazebo workspace so you will need to install ROS and Gazebo.
@@ -9,7 +9,7 @@ http://wiki.ros.org/noetic/Installation/Ubuntu
 For ROS tutorial it is advised that you follow the official ones from the ROS website:
 http://wiki.ros.org/ROS/Tutorials
 
-##### Setup
+### Setup
 To install ROS from scratch, run:
 ```bash
 ./install_ros.sh
@@ -25,7 +25,7 @@ This will first install all missing required packages that the project depends o
 Subsequently, you can just call catkin_make to build your project if no new required packages are added to the project.
 To add a new dependency, list it inside the package manifest using one of the <depend> tags. See http://wiki.ros.org/Manifest for more info.
 
-##### Deploying code on remote hardware
+### Deploying code on remote hardware
 To build your code on a remote machine, follow these steps:
 1. Run:
 ```bash
@@ -54,7 +54,45 @@ This will install the appropriate version of ROS as well as copy your code and b
 ./deploy.py -m <machine_name>
 ```
 
-##### Packages
+### Launching code on remote hardware
+##### Install Husarnet and join VPN
+For now we're using Husarnet as a VPN solution to connect to our remote hardware.
+To install and join the network, run the following commands:
+
+```bash
+curl https://install.husarnet.com/install.sh | sudo bash
+sudo systemctl restart husarnet
+sudo husarnet join <serveraddress> <clientname>
+```
+
+Contact one of the project members to send you the server address.
+
+:warning:
+**Husarnet automatically changes your machine's hostname. As a result, you won't be able to launch a local ROS core.**
+**Temp solution: add the following lines to your **~/.bashrc** file**
+
+```bash
+if [[ -z "${ROS_REMOTE}" ]];
+then
+export ROS_HOSTNAME=localhost
+fi
+```
+
+##### Launching the project
+Use the **launch.py** script to run a launch file on a remote machine:
+```bash
+./launch.py [-d <username>@<address>:<sshport> | -m machine] <package> <launchfile> <launchargs...>
+```
+
+This command uses the same **deploy_config.yaml** file as the deploy script, so if you set that up you can omit the -d or -m parameters and just use the default machine.
+Optionally you can use the **-t** and **-l** parameters to launch a local terminal or launch file respectively, either one connected to the remote ROS master.
+
+Presuming you're using the default machine defined in **deploy_config.yaml**, your launch command would look like this
+```bash
+./launch.py <remotepackage> <remotelaunchfile> <remotelaunchargs...> -t -l <localpackage> <locallaunchfile> <locallaunchargs...>
+```
+
+### Packages
 The project right now contains 4 packages:
 * ssam_core
 * ssam_control
@@ -94,7 +132,8 @@ This package contains the gazebo world (/worlds), the robot model (/models/scout
 To start it run "roslaunch ssam_simulation scout_startup.launch". 
 
 You should see gazebo startup, as well as rviz. You can use rviz to visualize various info about the robot, as well as issue goal commands for move_base.
-Optionally you can add the argument rviz:=false if you don't wish to launch rviz.
+Optionally you can add the argument rviz_ns:=<robot_ns> if you wish to view info about a specific scout (default is scout1).
+If you wish to turn off rviz, pass rviz_ns:=none.
 
 ###### Multiple Scouts
 To launch multiple scouts, use the argument scout_count:=<value> to set how many scouts you want to spawn (they will be spawn 1 meter apart on the Y axis).

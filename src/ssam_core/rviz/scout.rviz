@@ -6,7 +6,10 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /RobotModel1/Status1
+        - /Map1
+        - /PointCloud21
+        - /Map2
+        - /RobotModel1
       Splitter Ratio: 0.5
     Tree Height: 555
   - Class: rviz/Selection
@@ -59,7 +62,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /scout1/move_base/global_costmap/costmap
+      Topic: move_base/global_costmap/costmap
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -95,7 +98,7 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.05000000074505806
         Value: Arrow
-      Topic: /scout1/odom
+      Topic: odom
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -121,7 +124,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
-      Topic: /scout1/stereo/points2
+      Topic: stereo/points2
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -132,7 +135,7 @@ Visualization Manager:
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /scout1/move_base/local_costmap/costmap
+      Topic: move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -157,7 +160,7 @@ Visualization Manager:
       Radius: 0.029999999329447746
       Shaft Diameter: 0.10000000149011612
       Shaft Length: 0.10000000149011612
-      Topic: /scout1/move_base/TebLocalPlannerROS/global_plan
+      Topic: move_base/TebLocalPlannerROS/global_plan
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -181,7 +184,7 @@ Visualization Manager:
       Radius: 0.029999999329447746
       Shaft Diameter: 0.10000000149011612
       Shaft Length: 0.10000000149011612
-      Topic: /scout1/move_base/TebLocalPlannerROS/local_plan
+      Topic: move_base/TebLocalPlannerROS/local_plan
       Unreliable: false
       Value: true
     - Class: rviz/TF
@@ -280,7 +283,7 @@ Visualization Manager:
           Show Trail: false
           Value: true
       Name: RobotModel
-      Robot Description: scout1/robot_description
+      Robot Description: robot_description
       TF Prefix: ""
       Update Interval: 0
       Value: true
@@ -305,7 +308,7 @@ Visualization Manager:
       X std deviation: 0.5
       Y std deviation: 0.5
     - Class: rviz/SetGoal
-      Topic: scout1/move_base_simple/goal
+      Topic: move_base_simple/goal
     - Class: rviz/PublishPoint
       Single click: true
       Topic: /clicked_point
@@ -313,7 +316,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 11.51062297821045
+      Distance: 10.101945877075195
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -321,9 +324,9 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 4.711400032043457
-        Y: -2.830622434616089
-        Z: -1.3299124240875244
+        X: 1.3163982629776
+        Y: -0.3330410122871399
+        Z: -0.6953377723693848
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
@@ -349,5 +352,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: 72
-  Y: 27
+  X: 1073
+  Y: 278

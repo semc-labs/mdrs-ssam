@@ -9,7 +9,7 @@
   <arg name="headless" 		  default="false"/>
   <arg name="debug" 		    default="false"/>
   <arg name="scout_count"   default="1"/>
-  <arg name="rviz"          default="true"/>
+  <arg name="rviz_ns"       default="scout1"/>
 
   <!-- Load the world environment -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
@@ -23,9 +23,11 @@
 
   <!-- Spawn the robot after we built the urdf files -->
   <include file="$(find ssam_simulation)/launch/scout_spawn.xml" >
-      <arg name="scout_count" value="$(arg scout_count)" />
+    <arg name="scout_count" value="$(arg scout_count)" />
   </include>
 
-  <node if="$(arg rviz)" type="rviz" name="rviz" pkg="rviz" args="-d $(find ssam_simulation)/rviz/scout_simulation.rviz"/>
+  <include if="$(eval rviz_ns != 'none')" file="$(find ssam_core)/launch/scout_rviz.launch">
+    <arg name="namespace" value="$(arg rviz_ns)"/>
+  </include>
 
 </launch>

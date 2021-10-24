@@ -1,0 +1,5 @@
+<launch>
+    <arg name="namespace" default="/"/>
+
+    <node type="rviz" name="rviz" pkg="rviz" ns="$(arg namespace)" args="-d $(find ssam_core)/rviz/scout.rviz"/>
+</launch>

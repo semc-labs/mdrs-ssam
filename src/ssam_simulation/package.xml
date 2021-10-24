@@ -11,6 +11,7 @@
   <buildtool_depend>gazebo_ros</buildtool_depend>
   <buildtool_depend>gazebo_plugins</buildtool_depend>
   
+  <depend>gazebo</depend>
   <depend>gazebo_ros</depend>
   <depend>gazebo_plugins</depend>
   <depend>roscpp</depend>
