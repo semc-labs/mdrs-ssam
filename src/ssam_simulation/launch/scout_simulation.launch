@@ -2,28 +2,33 @@
 <launch>
 
   <!-- Define arguments -->
-  <arg name="world" 		    default="empty"/> 
-  <arg name="paused" 		    default="false"/>
-  <arg name="use_sim_time" 	default="true"/>
-  <arg name="gui" 		      default="true"/>
-  <arg name="headless" 		  default="false"/>
-  <arg name="debug" 		    default="false"/>
-  <arg name="scout_count"   default="1"/>
-  <arg name="rviz_ns"       default="scout1"/>
+  <arg name="world" 		          default="test_world"/> 
+  <arg name="paused" 		          default="false"/>
+  <arg name="use_sim_time" 	      default="true"/>
+  <arg name="gui" 		            default="true"/>
+  <arg name="headless" 		        default="false"/>
+  <arg name="debug" 		          default="false"/>
+  <arg name="scout_count"         default="1"/>
+  <arg name="rviz_ns"             default="scout1"/>
+
+  <!-- This is bad but it'll do for now. If REALLY necessary, we can add a script to snap the scout spawn to the ground-->
+  <arg if="$(eval world == 'mars_world')" name="scout_spawn_height"  value="5"/>
+  <arg unless="$(eval world == 'mars_world')" name="scout_spawn_height"  value="0"/>
 
   <!-- Load the world environment -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" 		value="$(find ssam_simulation)/worlds/test_world.world"/>
-    <arg name="paused" 			value="$(arg paused)"/>
-    <arg name="use_sim_time"            value="$(arg use_sim_time)"/>
-    <arg name="gui" 			value="$(arg gui)"/>
-    <arg name="headless" 		value="$(arg headless)"/>
-    <arg name="debug" 			value="$(arg debug)"/>
+    <arg name="world_name" 		value="$(find ssam_simulation)/worlds/$(arg world).world"/>
+    <arg name="paused" 			  value="$(arg paused)"/>
+    <arg name="use_sim_time"  value="$(arg use_sim_time)"/>
+    <arg name="gui" 			    value="$(arg gui)"/>
+    <arg name="headless" 		  value="$(arg headless)"/>
+    <arg name="debug" 			  value="$(arg debug)"/>
   </include>
 
   <!-- Spawn the robot after we built the urdf files -->
   <include file="$(find ssam_simulation)/launch/scout_spawn.xml" >
-    <arg name="scout_count" value="$(arg scout_count)" />
+    <arg name="scout_count" value="$(arg scout_count)"/>
+    <arg name="spawn_height" value="$(arg scout_spawn_height)"/>
   </include>
 
   <include if="$(eval rviz_ns != 'none')" file="$(find ssam_core)/launch/scout_rviz.launch">

@@ -1,6 +1,8 @@
 <launch>
 
-  <arg name="scout_count" default="1" />
+  <arg name="scout_count" default="1"/>
+  <arg name="spawn_height" default="0"/>
+
   <arg name="namespace" value="$(eval 'scout' + str(arg('scout_count')))"/>
 
   <group ns="$(arg namespace)">
@@ -9,11 +11,12 @@
       <!--TODO Add tf_prefix once robot_state_publisher 1.15.2 is available-->
       
       <node name="scout_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" 
-        args="-x 0 -y $(arg scout_count) -z 0 -urdf -param robot_description -model $(arg namespace)"/>
+        args="-x 0 -y $(arg scout_count) -z $(arg spawn_height) -urdf -param robot_description -model $(arg namespace)"/>
   </group>
 
   <include file="$(find ssam_simulation)/launch/scout_spawn.xml" if="$(eval arg('scout_count') > 1)">
-    <arg name="scout_count" value="$(eval arg('scout_count') - 1)" />
+    <arg name="scout_count" value="$(eval arg('scout_count') - 1)"/>
+    <arg name="spawn_height" value="$(arg spawn_height)"/>
   </include>
   
 </launch>
