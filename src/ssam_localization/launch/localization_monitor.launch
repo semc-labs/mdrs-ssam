@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch> 
+    <node name="odom_plot_x" pkg="rqt_plot" type="rqt_plot"
+        args="/scout1/diff_drive_controller/odom/pose/pose/position/x
+                /scout1/odometry/filtered/pose/pose/position/x" />
+    <node name="odom_plot_y" pkg="rqt_plot" type="rqt_plot"
+        args="/scout1/diff_drive_controller/odom/pose/pose/position/y
+                /scout1/odometry/filtered/pose/pose/position/y" />
+</launch>

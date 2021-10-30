@@ -10,4 +10,6 @@
     <include file="$(find ssam_control)/launch/scout_control.launch">
         <arg name="simulation" value="$(arg simulation)"/>
     </include>
+
+    <include file="$(find ssam_localization)/launch/ekf_scout_localization.launch" />
 </launch>

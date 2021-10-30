@@ -2,14 +2,15 @@
 <launch>
 
   <!-- Define arguments -->
-  <arg name="world" 		          default="test_world"/> 
-  <arg name="paused" 		          default="false"/>
-  <arg name="use_sim_time" 	      default="true"/>
+  <arg name="world" 		        default="test_world"/> 
+  <arg name="paused" 		        default="false"/>
+  <arg name="use_sim_time" 	        default="true"/>
   <arg name="gui" 		            default="true"/>
   <arg name="headless" 		        default="false"/>
-  <arg name="debug" 		          default="false"/>
-  <arg name="scout_count"         default="1"/>
-  <arg name="rviz_ns"             default="scout1"/>
+  <arg name="debug" 		        default="false"/>
+  <arg name="scout_count"           default="1"/>
+  <arg name="rviz_ns"               default="scout1"/>
+  <arg name="localization_monitor"  default="false" />
 
   <!-- This is bad but it'll do for now. If REALLY necessary, we can add a script to snap the scout spawn to the ground-->
   <arg if="$(eval world == 'mars_world')" name="scout_spawn_height"  value="5"/>
@@ -30,6 +31,8 @@
     <arg name="scout_count" value="$(arg scout_count)"/>
     <arg name="spawn_height" value="$(arg scout_spawn_height)"/>
   </include>
+
+  <include if="$(arg localization_monitor)" file="$(find ssam_localization)/launch/localization_monitor.launch" />
 
   <include if="$(eval rviz_ns != 'none')" file="$(find ssam_core)/launch/scout_rviz.launch">
     <arg name="namespace" value="$(arg rviz_ns)"/>

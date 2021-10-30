@@ -1,22 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch> 
-
-    <arg name="plot_odom" default="false" />
-
     <node pkg="tf" type="static_transform_publisher" name="map_to_odom_transformer" args="0 0 0 0 0 0 1 /map /odom 10"/>
 
     <!-- Run the EKF Localization node -->
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
         <rosparam command="load" file="$(find ssam_localization)/config/ekf_localization_config.yaml"/>
     </node>
-
-    <group if="$(arg plot_odom)">
-        <node name="odom_plot_x" pkg="rqt_plot" type="rqt_plot"
-            args="/scout/diff_drive_controller/odom/pose/pose/position/x
-                  /odometry/filtered/pose/pose/position/x" />
-        <node name="odom_plot_y" pkg="rqt_plot" type="rqt_plot"
-            args="/scout/diff_drive_controller/odom/pose/pose/position/y
-                  /odometry/filtered/pose/pose/position/y" />
-    </group>
 
 </launch>
