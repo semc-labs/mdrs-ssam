@@ -1,10 +1,11 @@
 <launch>
 
   <arg name="simulation" default="false"/>
+  <arg name="tf_prefix" default=""/>
 
   <node pkg="move_base" type="move_base" name="move_base" output="screen">
-    <rosparam file="$(find ssam_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap"/>
-    <rosparam file="$(find ssam_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap"/>
+    <rosparam file="$(find ssam_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="True"/>
+    <rosparam file="$(find ssam_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="True"/>
     <rosparam file="$(find ssam_navigation)/config/local_costmap_params.yaml" command="load"/>
     <rosparam file="$(find ssam_navigation)/config/global_costmap_params.yaml" command="load"/>
 
@@ -19,8 +20,4 @@
 
   <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" output="screen" ns="stereo"/>
 
-  <node unless="$(arg simulation)" pkg="fake_localization" type="fake_localization" name="fake_localization" output="screen">
-    <remap from="base_pose_ground_truth" to="diff_drive_controller/odom"/>
-  </node>
-  
 </launch>

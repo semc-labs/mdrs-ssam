@@ -1,13 +1,16 @@
 <launch>
     <arg name="simulation" default="false"/>
+    <arg name="tf_prefix" default=""/>
 
-    <rosparam command="load" file="$(find ssam_control)/config/controllers.yaml"/>
+    <rosparam command="load" file="$(find ssam_control)/config/controllers.yaml" subst_value="True"/>
 
     <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
         output="screen" args="joint_state_controller diff_drive_controller">
     </node>
 
-    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/>
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+        <param name="tf_prefix" value="$(eval arg('tf_prefix')[:-1])"/>
+    </node>
 
     <node unless="$(arg simulation)" name="test_node" pkg="ssam_control" type="scout_control" output="screen">
         <param name="diffDriveControllerName" value="diff_drive_controller"/>            

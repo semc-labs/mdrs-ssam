@@ -1,10 +1,12 @@
 <launch>
 
+    <arg name="tf_prefix" default=""/>
+
     <include file="$(find ssam_core)/launch/scout_startup.launch">
         <arg name="simulation" value="true"/>
+        <arg name="tf_prefix" value="$(arg tf_prefix)"/>
     </include>
 
-    <param name="robot_description" command="$(find xacro)/xacro '$(find ssam_simulation)/models/scout/scout.gazebo'"/>
-    <param name="diff_drive_controller/enable_odom_tf" value="false"/>
+    <param name="robot_description" command="$(find xacro)/xacro '$(find ssam_simulation)/models/scout/scout.gazebo' tf_prefix:=$(arg tf_prefix)"/>
     
 </launch>

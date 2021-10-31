@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch> 
-    <node pkg="tf" type="static_transform_publisher" name="map_to_odom_transformer" args="0 0 0 0 0 0 1 /map /odom 10"/>
+
+    <arg name="plot_odom" default="false" />
+    <arg name="tf_prefix" default=""/>
+
+    <node pkg="tf" type="static_transform_publisher" name="map_to_odom_transformer" args="0 0 0 0 0 0 1 /map $(arg tf_prefix)odom 10"/>
 
     <!-- Run the EKF Localization node -->
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_localization">
-        <rosparam command="load" file="$(find ssam_localization)/config/ekf_localization_config.yaml"/>
+        <rosparam command="load" file="$(find ssam_localization)/config/ekf_localization_config.yaml" subst_value="True"/>
     </node>
 
 </launch>

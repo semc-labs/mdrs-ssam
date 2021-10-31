@@ -3,6 +3,8 @@
   <xacro:include filename="$(find ssam_core)/models/scout/scout.xacro"/>
   <xacro:include filename="$(find ssam_simulation)/models/scout/materials.xacro"/>
 
+  <xacro:arg name="tf_prefix" default=""/>
+
   <transmission name="left_back_wheel_transmission">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="left_back_wheel_hinge">
@@ -72,13 +74,13 @@
         <visualize>true</visualize>
         <topic>__default_topic__</topic>
         <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-            <topicName>/imu0</topicName>
-            <bodyName>imu_link</bodyName>
+            <topicName>imu0</topicName>
+            <bodyName>$(arg tf_prefix)base_link</bodyName>
             <updateRateHZ>10.0</updateRateHZ>
             <gaussianNoise>0.0</gaussianNoise>
             <xyzOffset>0 0 0</xyzOffset>
             <rpyOffset>0 0 0</rpyOffset>
-            <frameName>imu_link</frameName>
+            <frameName>$(arg tf_prefix)imu_link</frameName>
             <initialOrientationAsReference>false</initialOrientationAsReference>
         </plugin>
         <pose>0 0 0 0 0 0</pose>
@@ -130,7 +132,7 @@
         <cameraName>stereo</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>camera_link_optical</frameName>
+        <frameName>$(arg tf_prefix)camera_link_optical</frameName>
         <hackBaseline>0.08</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>

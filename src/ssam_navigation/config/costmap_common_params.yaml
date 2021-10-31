@@ -10,7 +10,7 @@ costscalingfactor: 1.3
 map_topic: map
 subscribe_to_updates: true
 observation_sources: stereo_camera
-stereo_camera: {sensor_frame: camera_link, data_type: PointCloud2, topic: stereo/points2, marking: true, clearing: true}
+stereo_camera: {sensor_frame: $(arg tf_prefix)camera_link, data_type: PointCloud2, topic: stereo/points2, marking: true, clearing: true}
 global_frame: map
-robot_base_frame: base_link
+robot_base_frame: $(arg tf_prefix)base_link
 always_send_full_costmap: true

@@ -10,9 +10,9 @@ publish_tf: true
 
 # Complete the frames section
 map_frame: map
-odom_frame: odom
-base_link_frame: base_link
-world_frame: odom
+odom_frame: $(arg tf_prefix)odom
+base_link_frame: $(arg tf_prefix)base_link
+world_frame: $(arg tf_prefix)odom
 
 
 # State definition is:
@@ -25,7 +25,7 @@ world_frame: odom
 
 
 # Odom config - wheel encoders
-odom0: /scout1/diff_drive_controller/odom
+odom0: diff_drive_controller/odom
 odom0_config: [false, false, false,
                false, false, false,
                true, true, false,
@@ -34,7 +34,7 @@ odom0_config: [false, false, false,
 odom0_differential: false
 
 # Complete the imu0 configuration
-imu0: /imu0
+imu0: imu0
 imu0_config: [false, false, false,
               false, false, true,
               false, false, false,

@@ -6,10 +6,10 @@
   <arg name="namespace" value="$(eval 'scout' + str(arg('scout_count')))"/>
 
   <group ns="$(arg namespace)">
-      <include file="$(find ssam_simulation)/launch/scout_startup.xml"/>
+      <include file="$(find ssam_simulation)/launch/scout_startup.xml">
+        <arg name="tf_prefix" value="$(arg namespace)/"/>
+      </include>
 
-      <!--TODO Add tf_prefix once robot_state_publisher 1.15.2 is available-->
-      
       <node name="scout_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" 
         args="-x 0 -y $(arg scout_count) -z $(arg spawn_height) -urdf -param robot_description -model $(arg namespace)"/>
   </group>

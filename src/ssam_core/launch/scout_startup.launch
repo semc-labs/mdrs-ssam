@@ -1,15 +1,20 @@
 <launch>
     <arg name="simulation" default="false"/>
-
+    <arg name="tf_prefix" default=""/>
+    
     <param name="robot_description" command="$(find xacro)/xacro '$(find ssam_core)/models/scout/scout.xacro'"/>
 
     <include file="$(find ssam_navigation)/launch/scout_navigation.xml">
         <arg name="simulation" value="$(arg simulation)"/>
+        <arg name="tf_prefix" value="$(arg tf_prefix)"/>
     </include>
     
     <include file="$(find ssam_control)/launch/scout_control.launch">
         <arg name="simulation" value="$(arg simulation)"/>
+        <arg name="tf_prefix" value="$(arg tf_prefix)"/>
     </include>
 
-    <include file="$(find ssam_localization)/launch/ekf_scout_localization.launch" />
+    <include file="$(find ssam_localization)/launch/ekf_scout_localization.launch">
+        <arg name="tf_prefix" value="$(arg tf_prefix)"/>
+    </include>
 </launch>

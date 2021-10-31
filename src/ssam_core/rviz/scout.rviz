@@ -98,7 +98,7 @@ Visualization Manager:
         Shaft Length: 1
         Shaft Radius: 0.05000000074505806
         Value: Arrow
-      Topic: odom
+      Topic: odometry/filtered
       Unreliable: false
       Value: true
     - Alpha: 1
@@ -284,7 +284,7 @@ Visualization Manager:
           Value: true
       Name: RobotModel
       Robot Description: robot_description
-      TF Prefix: ""
+      TF Prefix: scout1/
       Update Interval: 0
       Value: true
       Visual Enabled: true
