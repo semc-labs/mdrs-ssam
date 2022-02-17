@@ -34,5 +34,8 @@ include_directories(
 add_library(map_odometry_linker src/gazebo/map_odometry_linker.cpp)
 target_link_libraries( map_odometry_linker ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} )
 
+add_library(localization_ground_truth src/gazebo/localization_ground_truth.cpp)
+target_link_libraries( localization_ground_truth ${catkin_LIBRARIES} ${GAZEBO_LIBRARIES} )
+
 # Gazebo set flags
 list(APPEND CMAKE_CXX_FLAGS "${GAZEBO_CXX_FLAGS}")

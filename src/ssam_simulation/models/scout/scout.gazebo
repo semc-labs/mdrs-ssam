@@ -66,6 +66,13 @@
   </gazebo>
   -->
 
+  <gazebo>
+    <plugin name="localization_ground_truth" filename="liblocalization_ground_truth.so">
+        <topic>truePose</topic>
+        <updateRate>100</updateRate>
+    </plugin>
+  </gazebo>
+
   <gazebo reference="imu_link">
     <gravity>true</gravity>
     <sensor name="imu_sensor" type="imu">
