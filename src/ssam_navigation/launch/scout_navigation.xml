@@ -18,6 +18,9 @@
     <remap from="cmd_vel" to="diff_drive_controller/cmd_vel"/>
   </node>
 
-  <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" output="screen" ns="stereo"/>
+  <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" output="screen" ns="stereo">
+    <param name="disparity_range" value="128"/>
+    <param name="speckle_size" value="1000"/>
+  </node>
 
 </launch>
