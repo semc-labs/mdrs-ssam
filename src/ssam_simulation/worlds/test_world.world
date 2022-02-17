@@ -57,7 +57,7 @@
           <material>
             <script>
               <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
+              <name>Gazebo/Grass</name>
             </script>
           </material>
         </visual>
@@ -88,7 +88,7 @@
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
     <model name='unit_box'>
-      <pose>-0.005409 4.02347 0.5 0 -0 0</pose>
+      <pose>4 1 0.5 0 -0 0</pose>
       <link name='link'>
         <inertial>
           <mass>1</mass>
@@ -130,7 +130,7 @@
           </geometry>
           <material>
             <script>
-              <name>Gazebo/Grey</name>
+              <name>Gazebo/Bricks</name>
               <uri>file://media/materials/scripts/gazebo.material</uri>
             </script>
           </material>
@@ -183,7 +183,7 @@
           </geometry>
           <material>
             <script>
-              <name>Gazebo/Grey</name>
+              <name>Gazebo/Bricks</name>
               <uri>file://media/materials/scripts/gazebo.material</uri>
             </script>
           </material>
@@ -238,7 +238,7 @@
           </geometry>
           <material>
             <script>
-              <name>Gazebo/Grey</name>
+              <name>Gazebo/Bricks</name>
               <uri>file://media/materials/scripts/gazebo.material</uri>
             </script>
           </material>
@@ -293,7 +293,7 @@
           </geometry>
           <material>
             <script>
-              <name>Gazebo/Grey</name>
+              <name>Gazebo/Bricks</name>
               <uri>file://media/materials/scripts/gazebo.material</uri>
             </script>
           </material>
@@ -346,7 +346,7 @@
           </geometry>
           <material>
             <script>
-              <name>Gazebo/Grey</name>
+              <name>Gazebo/Bricks</name>
               <uri>file://media/materials/scripts/gazebo.material</uri>
             </script>
           </material>
@@ -357,10 +357,10 @@
       </link>
     </model>
     <state world_name='default'>
-      <sim_time>75 359000000</sim_time>
-      <real_time>75 549270748</real_time>
-      <wall_time>1628783793 378064039</wall_time>
-      <iterations>75359</iterations>
+      <sim_time>125 519000000</sim_time>
+      <real_time>51 241771267</real_time>
+      <wall_time>1637819777 661864908</wall_time>
+      <iterations>50160</iterations>
       <model name='ground_plane'>
         <pose>0 0 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -372,50 +372,50 @@
         </link>
       </model>
       <model name='unit_box'>
-        <pose>-0.005404 4.02347 0.499995 0 1e-05 0</pose>
+        <pose>3.44827 0.997873 0.499995 1e-05 -0 0.002562</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-0.005404 4.02347 0.499995 0 1e-05 0</pose>
+          <pose>3.44827 0.997873 0.499995 1e-05 -0 0.002562</pose>
+          <velocity>0 0 0 0 -0 0</velocity>
+          <acceleration>0.004705 -0.011042 -9.78158 0.02208 0.009406 -1e-06</acceleration>
+          <wrench>0.004705 -0.011042 -9.78158 0 -0 0</wrench>
+        </link>
+      </model>
+      <model name='unit_box_0'>
+        <pose>2.56826 -3.55151 0.499995 0 1e-05 0</pose>
+        <scale>1 1 1</scale>
+        <link name='link'>
+          <pose>2.56826 -3.55151 0.499995 0 1e-05 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0.010615 -0.006191 -9.78231 0.012424 0.021225 1.8e-05</acceleration>
           <wrench>0.010615 -0.006191 -9.78231 0 -0 0</wrench>
         </link>
       </model>
-      <model name='unit_box_0'>
-        <pose>2.56826 -3.5515 0.499995 -1e-05 -0 -0</pose>
-        <scale>1 1 1</scale>
-        <link name='link'>
-          <pose>2.56826 -3.5515 0.499995 -1e-05 -0 -0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0.004709 0.011055 -9.78158 -0.022108 0.009414 1e-06</acceleration>
-          <wrench>0.004709 0.011055 -9.78158 0 -0 0</wrench>
-        </link>
-      </model>
       <model name='unit_box_1'>
-        <pose>-2.64012 2.09466 0.5 0 -0 0</pose>
+        <pose>-2.64012 2.09465 0.499995 0 1e-05 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-2.64012 2.09466 0.5 0 -0 0</pose>
+          <pose>-2.64012 2.09465 0.499995 0 1e-05 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.004709 -9.78112 9.78158 0.712677 -0.009414 -4.3e-05</acceleration>
-          <wrench>-0.004709 -9.78112 9.78158 0 -0 0</wrench>
+          <acceleration>0.010615 -0.006191 -9.78231 0.012424 0.021225 1.8e-05</acceleration>
+          <wrench>0.010615 -0.006191 -9.78231 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_cylinder'>
-        <pose>-4.23623 -1.75923 0.499997 3e-06 4e-06 -0</pose>
+        <pose>-4.23623 -1.75923 0.499992 -4e-06 4e-06 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-4.23623 -1.75923 0.499997 3e-06 4e-06 -0</pose>
+          <pose>-4.23623 -1.75923 0.499992 -4e-06 4e-06 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <acceleration>0 0 -9.8 -0 -0 -0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_cylinder_0'>
-        <pose>4.09119 -1.16976 0.499993 -3e-06 -4e-06 -0</pose>
+        <pose>4.09119 -5.18882 0.499991 -0 -0 -0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>4.09119 -1.16976 0.499993 -3e-06 -4e-06 -0</pose>
+          <pose>4.09119 -5.18882 0.499991 -0 -0 -0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 -9.8 0 -0 0</acceleration>
           <wrench>0 0 -9.8 0 -0 0</wrench>
@@ -427,7 +427,7 @@
     </state>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>12.9614 -7.79078 7.87897 0 0.523643 2.68819</pose>
+        <pose>13.1971 -6.04183 8.83884 0 0.523643 2.68819</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
