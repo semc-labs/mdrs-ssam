@@ -10,6 +10,13 @@
 
   <buildtool_depend>catkin</buildtool_depend>
   
+  <depend>pluginlib</depend>
+  <depend>nav_core</depend>
+  <depend>mbf_abstract_nav</depend>
+  <depend>mbf_abstracat_core</depend>
+  <depend>octomap</depend>
+  <depend>grid_map_ros</depend>
+  
   <exec_depend>xacro</exec_depend>
   <exec_depend>move_base</exec_depend>
   <exec_depend>stereo_image_proc</exec_depend>

@@ -3,20 +3,56 @@
   <arg name="simulation" default="false"/>
   <arg name="tf_prefix" default=""/>
 
-  <node pkg="move_base" type="move_base" name="move_base" output="screen">
-    <rosparam file="$(find ssam_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="True"/>
-    <rosparam file="$(find ssam_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="True"/>
-    <rosparam file="$(find ssam_navigation)/config/local_costmap_params.yaml" command="load"/>
-    <rosparam file="$(find ssam_navigation)/config/global_costmap_params.yaml" command="load"/>
+  <arg name="use_gridmap_nav" value="false"/>
 
-    <rosparam file="$(find ssam_navigation)/config/planner_global.yaml" command="load" />
-    <param    name="base_global_planner"       value="global_planner/GlobalPlanner"/>
+  <!--Gridmap Navigation-->
+  <group if="$(arg use_gridmap_nav)">
+    <node name="move_base_flex" pkg="ssam_navigation" type="test_nav_server" required="true" output="screen">
+      <rosparam file="$(find ssam_navigation)/config/planner_global.yaml" command="load" />
 
-    <rosparam file="$(find ssam_navigation)/config/planner_teb.yaml" command="load"/>
-    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
+      <rosparam file="$(find ssam_navigation)/config/planner_dwa.yaml" command="load"/>
+
+      <rosparam file="$(find ssam_navigation)/config/mbf_config.yaml" command="load"/>
+      <param name="robot_frame" value="scout1/base_link"/>
+      <param name="mbf_tolerance_check" value="true"/>
+      <param name="angle_tolerance" value="3.12"/>
+      <remap from="cmd_vel" to="diff_drive_controller/cmd_vel"/>
+      <remap from="odom" to="odometry/filtered"/>
+    </node>
     
-    <remap from="cmd_vel" to="diff_drive_controller/cmd_vel"/>
-  </node>
+    <node if="$(arg simulation)" name="mbf_relay" pkg="ssam_navigation" type="relay.py" output="screen"/>
+
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap">
+      <param name="resolution" value="0.2"/>
+      <param name="frame_id" value="map"/>
+      <param name="sensor_model/max_range" value="5.0"/>
+      <param name="latch" value="false"/>
+      <remap from="cloud_in" to="stereo/points2"/>
+    </node>
+
+    <node pkg="grid_map_visualization" type="grid_map_visualization" name="grid_map_visualization" output="screen">
+      <rosparam command="load" file="$(find ssam_navigation)/config/grid_map_viz.yaml" />
+      <remap from="grid_map_visualization/grid_map" to="grid_map"/>
+    </node>
+  </group>
+
+  <!--Costmap Navigation-->
+  <group unless="$(arg use_gridmap_nav)">
+    <node pkg="move_base" type="move_base" name="move_base" output="screen">
+      <rosparam file="$(find ssam_navigation)/config/costmap_common_params.yaml" command="load" ns="global_costmap" subst_value="True"/>
+      <rosparam file="$(find ssam_navigation)/config/costmap_common_params.yaml" command="load" ns="local_costmap" subst_value="True"/>
+      <rosparam file="$(find ssam_navigation)/config/local_costmap_params.yaml" command="load"/>
+      <rosparam file="$(find ssam_navigation)/config/global_costmap_params.yaml" command="load"/>
+
+      <rosparam file="$(find ssam_navigation)/config/planner_global.yaml" command="load" />
+      <param    name="base_global_planner"       value="global_planner/GlobalPlanner"/>
+
+      <rosparam file="$(find ssam_navigation)/config/planner_teb.yaml" command="load"/>
+      <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS"/>
+      
+      <remap from="cmd_vel" to="diff_drive_controller/cmd_vel"/>
+    </node>
+  </group>
 
   <node pkg="stereo_image_proc" type="stereo_image_proc" name="stereo_image_proc" output="screen" ns="stereo">
     <param name="disparity_range" value="128"/>

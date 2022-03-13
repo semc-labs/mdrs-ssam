@@ -2,12 +2,22 @@ cmake_minimum_required(VERSION 3.0.2)
 project(ssam_navigation)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-g -std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED 
+  roscpp 
+  tf 
+  mbf_abstract_nav 
+  pluginlib 
+  octomap 
+  costmap_2d 
+  cv_bridge 
+  grid_map_ros 
+  grid_map_octomap 
+  base_local_planner)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -99,6 +109,9 @@ find_package(catkin REQUIRED)
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
+    LIBRARIES 
+    CATKIN_DEPENDS
+    mbf_abstract_nav
 #  INCLUDE_DIRS include
 #  LIBRARIES ssam_navigation
 #  CATKIN_DEPENDS other_catkin_pkg
@@ -112,14 +125,38 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
-# ${catkin_INCLUDE_DIRS}
+include
+${catkin_INCLUDE_DIRS}
+${OCTOMAP_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/ssam_navigation.cpp
 # )
+
+add_library(global_planner_lib src/global_planner/a_star_global_planner.cpp)
+add_library(local_planner_lib 
+  src/local_planner/dwa_planner.cpp
+  src/local_planner/dwa_planner_ros.cpp
+  src/local_planner/obstacle_cost_function.cpp
+  src/local_planner/map_grid_cost_function.cpp
+  src/local_planner/gridmap_model.cpp
+  src/local_planner/map_grid.cpp
+  src/local_planner/latched_stop_rotate_controller.cpp
+  )
+
+add_library(nav_server_lib src/ssam_nav_server.cpp)
+
+target_link_libraries(nav_server_lib ${catkin_LIBRARIES})
+target_link_libraries(nav_server_lib ${OCTOMAP_LIBRARIES})
+target_link_libraries(nav_server_lib local_planner_lib)
+target_link_libraries(nav_server_lib global_planner_lib)
+
+add_executable(nav_server src/ssam_nav_server_node.cpp)
+target_link_libraries(nav_server ${catkin_LIBRARIES})
+target_link_libraries(nav_server ${OCTOMAP_LIBRARIES})
+target_link_libraries(nav_server nav_server_lib)
 
 ## Add cmake target dependencies of the library
 ## as an example, code may need to be generated before libraries
@@ -159,6 +196,10 @@ include_directories(
 #   scripts/my_python_script
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
+
+catkin_install_python(PROGRAMS scripts/relay.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 ## Mark executables for installation
 ## See http://docs.ros.org/melodic/api/catkin/html/howto/format1/building_executables.html
